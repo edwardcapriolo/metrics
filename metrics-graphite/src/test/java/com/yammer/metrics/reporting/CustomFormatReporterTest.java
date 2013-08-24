@@ -6,6 +6,10 @@ import static org.mockito.Mockito.when;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import junit.framework.Assert;
+
+import org.junit.Test;
+
 import com.yammer.metrics.core.Clock;
 import com.yammer.metrics.core.MetricPredicate;
 import com.yammer.metrics.core.MetricsRegistry;
@@ -13,6 +17,14 @@ import com.yammer.metrics.reporting.tests.AbstractPollingReporterTest;
 
 public class CustomFormatReporterTest extends AbstractPollingReporterTest{
 
+  @Test
+  public void abc() throws Exception{
+    //MetricName name = new MetricName(Object.class, "metric");
+    StringBuilder sb = new StringBuilder("abc.").append(CustomFormatReporter.METRICS_GROUP);
+    CustomFormatReporter.replace(sb, CustomFormatReporter.METRICS_GROUP, "group");
+    Assert.assertEquals("abc.group",sb.toString());
+  }
+  
   @Override
   protected AbstractPollingReporter createReporter(MetricsRegistry registry, OutputStream out, Clock clock) throws Exception {
       final Socket socket = mock(Socket.class);
